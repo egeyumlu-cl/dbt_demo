@@ -1,0 +1,21 @@
+version: 2
+
+sources:
+  - name: jaffle_shop
+    description: jaffle_shop schema from the database 
+    database: raw
+    schema: jaffle_shop
+    tables:
+      # Dim Tables of AAD
+      - name: Customers
+      - name: Orders
+        columns:
+          - name: _ETL_LOADED_AT
+            description: "The unique identifier for an order."
+            tests:
+              - not_null
+        freshness:
+          warn_after:
+            count: 1
+            period: day
+        loaded_at_field: _ETL_LOADED_AT
